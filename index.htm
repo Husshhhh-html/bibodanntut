@@ -90,7 +90,7 @@ progress {
 
 <div class="progress-container">
     <progress id="progressBar" value="0" max="30"></progress>
-    <div class="percent" id="percentText">0 / 30 Hari</div>
+    <div class="percent" id="percentText">0 / 30 Juz</div>
 </div>
 
 <script>
@@ -104,7 +104,7 @@ let savedData = JSON.parse(localStorage.getItem("ramadhanTracker")) || new Array
 function updateProgress() {
     const totalChecked = savedData.filter(item => item).length;
     progressBar.value = totalChecked;
-    percentText.textContent = totalChecked + " / 30 Hari";
+    percentText.textContent = totalChecked + " / 30 Juz";
 }
 
 // Buat 30 hari
@@ -113,7 +113,7 @@ for (let i = 0; i < 30; i++) {
     div.className = "day";
 
     const label = document.createElement("label");
-    label.textContent = "Hari " + (i + 1);
+    label.textContent = "Juz " + (i + 1);
 
     const checkbox = document.createElement("input");
     checkbox.type = "checkbox";
@@ -136,5 +136,6 @@ updateProgress();
 
 </body>
 </html>
+
 
 
