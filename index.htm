@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ramadhan Tracker</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    overflow-x: hidden;
+}
+
+/* Bulan sabit */
+body::before {
+    content: "";
+    position: absolute;
+    top: 60px;
+    right: 60px;
+    width: 120px;
+    height: 120px;
+    background: #f4e04d;
+    border-radius: 50%;
+    box-shadow: -25px 0 0 0 #0f2027;
+}
+
+/* Siluet masjid */
+body::after {
+    content: "";
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 150px;
+    background: black;
+    clip-path: polygon(
+        0% 100%, 0% 70%, 10% 70%, 15% 50%, 20% 70%, 
+        35% 70%, 40% 45%, 45% 70%, 
+        60% 70%, 65% 55%, 70% 70%, 
+        85% 70%, 90% 50%, 95% 70%, 
+        100% 70%, 100% 100%
+    );
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 32px;
+}
+
+.container {
+    max-width: 400px;
+    margin: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.day {
+    display: flex;
+    justify-content: space-between;
+    background: rgba(255,255,255,0.1);
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 10px;
+}
+
+.progress-container {
+    margin-top: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+progress {
+    width: 100%;
+    height: 20px;
+}
+
+.percent {
+    margin-top: 10px;
+}
+</style>
+</head>
+<body>
+
+<h1>One Day One Juz punya Bibo dan Ntut 🌙</h1>
+
+<div class="container" id="tracker"></div>
+
+<div class="progress-container">
+    <progress id="progressBar" value="0" max="30"></progress>
+    <div class="percent" id="percentText">0 / 30 Hari</div>
+</div>
+
+<script>
+const tracker = document.getElementById("tracker");
+const progressBar = document.getElementById("progressBar");
+const percentText = document.getElementById("percentText");
+
+// Ambil data dari localStorage atau buat array kosong
+let savedData = JSON.parse(localStorage.getItem("ramadhanTracker")) || new Array(30).fill(false);
+
+function updateProgress() {
+    const totalChecked = savedData.filter(item => item).length;
+    progressBar.value = totalChecked;
+    percentText.textContent = totalChecked + " / 30 Hari";
+}
+
+// Buat 30 hari
+for (let i = 0; i < 30; i++) {
+    const div = document.createElement("div");
+    div.className = "day";
+
+    const label = document.createElement("label");
+    label.textContent = "Hari " + (i + 1);
+
+    const checkbox = document.createElement("input");
+    checkbox.type = "checkbox";
+    checkbox.checked = savedData[i];
+
+    checkbox.addEventListener("change", function() {
+        savedData[i] = this.checked;
+        localStorage.setItem("ramadhanTracker", JSON.stringify(savedData));
+        updateProgress();
+    });
+
+    div.appendChild(label);
+    div.appendChild(checkbox);
+    tracker.appendChild(div);
+}
+
+updateProgress();
+</script>
+
+
+</body>
+</html>
