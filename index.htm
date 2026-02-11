@@ -15,18 +15,17 @@ body {
     overflow-x: hidden;
 }
 
-/* Bulan sabit */
-body::before {
-    content: "";
-    position: absolute;
-    top: 60px;
-    right: 60px;
-    width: 120px;
-    height: 120px;
-    background: #f4e04d;
-    border-radius: 50%;
-    box-shadow: -25px 0 0 0 #0f2027;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    color: white;
+    background: radial-gradient(circle at top right, rgba(255, 215, 0, 0.15), transparent 40%),
+                linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+    overflow-x: hidden;
 }
+
 
 /* Siluet masjid */
 body::after {
@@ -137,4 +136,5 @@ updateProgress();
 
 </body>
 </html>
+
 
